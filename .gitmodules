@@ -1,0 +1,9 @@
+[submodule "ms-ui"]
+	path = ms-ui
+	url = https://github.com/corpobear/ms-ui.git
+[submodule "ms-1"]
+	path = ms-1
+	url = https://github.com/corpobear/ms-1.git
+[submodule "ms-2"]
+	path = ms-2
+	url = https://github.com/corpobear/ms-2.git

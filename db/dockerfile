@@ -1,0 +1,5 @@
+FROM postgres:latest
+
+# copy create.sql as init point
+
+COPY create.sql /docker-entrypoint-initdb.d

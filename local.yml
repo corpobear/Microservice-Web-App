@@ -1,0 +1,56 @@
+services:
+  database:
+    build:
+      context: ./db
+      dockerfile: dockerfile
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - "5435:5432"
+    networks:
+      - my-network
+
+  ms-1:
+    build:
+      context: ./ms-1
+      dockerfile: dockerfile.local
+    volumes:
+      - ./ms-1:/usr/src/application
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+    networks:
+      - my-network
+
+  ms-2:
+    build:
+      context: ./ms-2
+      dockerfile: dockerfile.local
+    volumes:
+      - ./ms-2:/usr/src/application
+    ports:
+      - "8010:8000"
+    depends_on:
+      - database
+    networks:
+      - my-network
+
+  ms-ui:
+    build:
+      context: ./ms-ui
+      dockerfile: dockerfile.local
+    volumes:
+      - ./ms-ui:/usr/src/application
+    ports:
+      - "3000:3000"
+    depends_on:
+      - ms-1
+      - ms-2
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
